@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background: #fefefe;
+}
+
+.wrapper {
+  width: 768px;
+  max-width: 95%;
+  margin: auto;
+  position: relative;
+}
+
+#header {
+  background: -webkit-gradient(linear, left top, left bottom, from(black), to(#2a2a2a)) !important;
+  background: linear-gradient(black, #2a2a2a) !important;
+  color: white;
+}
+
+.block {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #fafafa;
+  height: 150px;
+  width: 100%;
+  border-radius: 10px;
+}

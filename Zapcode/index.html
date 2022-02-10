@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Игра: Какой ты чай?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/core.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://libs.zappar.com/zappar-aframe/0.3.29/zappar-aframe.js"></script>
+  </head>
+      
+  <body>
+    <!-- Управление по нажатию на элементы в доп реальности-->
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects: [data-clickable]">
+      <!-- Загружаем ассеты -->
+      <a-assets>
+        <!-- Чайник -->
+        <img
+          id="teapot_png"
+          src="src/teapot.png"
+        />
+        <!-- Кнопка старта -->
+        <img 
+          id="play_button_png"
+          src="src/play.png"
+        />
+        <!-- Кнопка заново -->
+        <img 
+          id="refresh_button_png"
+          src="src/refresh.png"
+        />
+        <!-- Кнопка сохранения скриншота -->
+        <img 
+          id="save_button_png"
+          src="src/save.png"
+        />
+        <!-- Кнопка открытия рецепта -->
+        <img 
+          id="list_button_png"
+          src="src/list.png"
+        />
+
+        <!-- Ингредиенты -->
+        <img 
+          id="black_tea_png"
+          src="src/ingredients/black_tea.png"
+        />
+        <img 
+          id="caramel_png"
+          src="src/ingredients/caramel.png"
+        />
+        <img 
+          id="chocolate_png"
+          src="src/ingredients/chocolate.png"
+        />
+        <img 
+          id="strawberry_png"
+          src="src/ingredients/strawberry.png"
+        />
+        <img 
+          id="blueberry_png"
+          src="src/ingredients/blueberry.png"
+        />
+        <img 
+          id="vanilla_png"
+          src="src/ingredients/vanilla.png"
+        />
+        <img 
+          id="honey_png"
+          src="src/ingredients/honey.png"
+        />
+        <img 
+          id="carnation_png"
+          src="src/ingredients/carnation.png"
+        />
+        <img 
+          id="cinnamon_png"
+          src="src/ingredients/cinnamon.png"
+        />
+        <img 
+          id="orange_png"
+          src="src/ingredients/orange.png"
+        />
+        <img 
+          id="lemon_png"
+          src="src/ingredients/lemon.png"
+        />
+        <img 
+          id="cranberry_png"
+          src="src/ingredients/cranberry.png"
+        />
+        <img 
+          id="thyme_png"
+          src="src/ingredients/thyme.png"
+        />
+        <img 
+          id="mint_png"
+          src="src/ingredients/mint.png"
+        />
+        <img 
+          id="currant_png"
+          src="src/ingredients/currant.png"
+        />
+        <img 
+          id="hibiscus_png"
+          src="src/ingredients/hibiscus.png"
+        />
+        <img 
+          id="barberry_png"
+          src="src/ingredients/barberry.png"
+        />
+        <!-- Корона (3D объект)-->
+        <a-asset-item
+          id="crown"
+          src="https://cdn.glitch.global/8cd2ee54-a770-4224-88fc-e8ed68987492/13451_Golden_Crown_v1_L2.obj?v=1642927249320"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="test"
+          src="src/ingredients/lemon.png"
+        ></a-asset-item>
+
+        <!--Корона (материалы)-->
+        <a-asset-item
+          id="crown-mtl"
+          src="https://cdn.glitch.global/8cd2ee54-a770-4224-88fc-e8ed68987492/13451_Golden_Crown_v1_L2.mtl?v=1642927235352"
+        ></a-asset-item>
+      </a-assets>
+
+      <!-- Получение разрешения на использование камеры и вывод сообщения-->
+      <a-entity zappar-permissions-ui id="permissions">
+        <a-entity
+          text="value: Please reload the page, accepting the camera permissions."
+          position="0 0 -2"
+        >
+        </a-entity>
+      </a-entity>
+
+      <!--Подключение камеры с возможностью распознавания лиц-->
+      <a-entity camera zappar-camera="user-facing: true;"> </a-entity>
+
+      <!-- Трекинг лица: при наложении на лицо отображаются элементы находящиеся внутри контейнера с компонентом ZAPPAR-FACE  -->
+      <a-entity zappar-face id="face-track">
+        <!--    Отображение шапки (2D)      -->
+        <a-entity
+          visible="true"
+          id="screen0"
+          geometry="primitive: plane;"
+          material="src:#teapot_png; transparent: true;"
+          rotation="0 0 0"
+          scale="1 1 1"
+          position="0 0.9 0.8"
+        ></a-entity>
+
+        <!-- Основной текст -->
+        <a-entity 
+          id = "maintextblack"
+          position ="0.06 0.7 0.85"
+          scale="4 4 4"
+          text="
+            z-offset: 0;
+            value: Какой ты чай?;
+            font: fonts/PTSans-Bold-msdf.json;
+            font-image: fonts/PTSans-Bold.png;
+            color: black;
+            opacity: 0.5;
+            negate: false;
+            align: center;
+          "
+        ></a-entity>
+        <a-entity 
+          id ="maintextwhite"
+          position ="0.05 0.7 0.8"
+          scale="4 4 4"
+          text="
+            z-offset: 0.05;
+            value: Какой ты чай?;
+            font: fonts/PTSans-Bold-msdf.json;
+            font-image: fonts/PTSans-Bold.png;
+            color: white;
+            negate: false;
+            align: center;
+          "
+        ></a-entity>
+
+        <!-- Отображение основной кнопки -->
+        <a-entity
+          visible="true"
+          id="play_button"
+          geometry="primitive: plane;"
+          material="src:#play_button_png; transparent: true;"
+          rotation="0 0 0"
+          scale="0.3 0.3 0.3"
+          position="0 0.4 1"
+          data-clickable
+          onclick="OnClickPlay()"
+        ></a-entity>
+
+        <!-- Отображение рефреш кнопки -->
+        <a-entity
+          visible="true"
+          id="refresh_button"
+          geometry="primitive: plane;"
+          material="src:#refresh_button_png; transparent: true;"
+          rotation="0 0 0"
+          scale="0 0 0"
+          position="0 0.4 1"
+          data-clickable
+          onclick="OnClickRefresh()"
+        ></a-entity>
+
+        <a-entity
+          visible="true"
+          id="list_button"
+          geometry="primitive: plane;"
+          material="src:#list_button_png; transparent: true;"
+          rotation="0 0 0"
+          scale="0 0 0"
+          position="-0.3 0.4 1"
+          data-clickable
+          onclick="OnClickReceipt()"
+        ></a-entity>
+        <a-entity
+          visible="true"
+          id="save_button"
+          geometry="primitive: plane;"
+          material="src:#save_button_png; transparent: true;"
+          rotation="0 0 0"
+          scale="0 0 0"
+          position="0.3 0.4 1"
+          data-clickable
+          onclick="OnClickSaveScreenshot()"
+        ></a-entity>
+
+        <!-- Отображение короны (3D объект + материал)
+        <a-obj-model
+          src="#crown"
+          mtl="#crown-mtl"
+          visible="false"
+          id="facemesh1"
+          rotation="-90 0 0"
+          scale="0.075 0.075 0.075"
+          position="0.008 0.530 0.329"
+        ></a-obj-model>
+
+        <a-entity
+          geometry="primitive: plane"
+          material="src: #next; transparent: true;"
+          position="0.5 -1.5 0"
+          scale="0.5 0.5 0.5"
+          data-clickable
+          onclick="OnNextClick()"
+        ></a-entity>
+
+        <a-entity
+          geometry="primitive: plane"
+          material="src: #prev; transparent: true;"
+          position="-0.5 -1.5 0"
+          scale="0.5 0.5 0.5"
+          data-clickable
+          onclick="OnPrevClick()"
+        ></a-entity>
+        -->
+      </a-entity>
+    </a-scene>
+
+
+
+    <!--<button class="open_receipt"></button>-->
+    <script>
+    </script>
+  </body>
+</html>
